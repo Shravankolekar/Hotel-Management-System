@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Management | Add Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    background: linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.75)
+    ),
+    url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    background:rgba(17, 17, 18, 0.7);
+    backdrop-filter:blur(2px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+/* MAIN CONTENT */
+.main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.form-container{
+    width:100%;
+    max-width:600px;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    animation:fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:26px;
+}
+
+/* FORM */
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    font-size:14px;
+}
+
+.form-group label{
+    font-size:13px;
+    margin-bottom:6px;
+    display:block;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* MESSAGES */
+.message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:500;
+}
+.error{
+    color:#ff6b6b;
+}
+.success{
+    color:#2ecc71;
+}
+.form-group select{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    font-size:14px;
+    background:rgba(255,255,255,0.9);
+    color:#333;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+/* Hover effect */
+.form-group select:hover{
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Focus effect */
+.form-group select:focus{
+    box-shadow:0 0 0 2px #00c6ff;
+}
+
+/* Optional: make dropdown arrow cleaner */
+.form-group select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg fill='%230072ff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    background-size:16px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Booking Panel</h2>
+
+    <a href="/Booking_Crud/">Dashboard</a>
+    <hr>
+    <a href="/Add_Booking/">Add Booking</a>
+    <hr>
+    <a href="/Show_All_Bookings/">Show All Bookings</a>
+    <a href="/Show_Single_Booking/">Search Booking</a>
+    <hr>
+    <a href="/Update_All_Data/">Update Full Booking</a>
+    <hr>
+    <a href="/Delete_Booking/">Delete Booking</a>
+
+    <hr>
+
+    <a href="/Admin_Dashbord/">Admin Home</a>
+    <a href="{% url 'Login_Admin' %}">Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="form-container">
+    <h2>Add New Booking</h2>
+
+    <form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <input type="number" name="bid" placeholder="Booking ID" required>
+    </div>
+
+    <div class="form-group">
+        <label>Select Guest</label>
+        <select name="gid" required>
+            <option value="">-- Select Guest --</option>
+            {% for g in guests %}
+                <option value="{{ g.gid }}">{{ g.gname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Select Room</label>
+        <select name="rid" required>
+            <option value="">-- Select Room --</option>
+            {% for r in rooms %}
+                <option value="{{ r.rid }}">
+                    {{ r.room_type }} - ₹{{ r.price_per_day }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Check-In Date</label>
+        <input type="date" name="check_in" required>
+    </div>
+
+    <div class="form-group">
+        <label>Check-Out Date</label>
+        <input type="date" name="check_out" required>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="status" placeholder="Booking Status (Optional)">
+    </div>
+
+    <button type="submit">Add Booking</button>
+</form>
+
+{% if error %}
+    <p class="message error">{{error}}</p>
+{% endif %}
+
+{% if message %}
+    <p class="message success">{{message}}</p>
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>

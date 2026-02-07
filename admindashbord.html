@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Management | Admin Dashboard</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body{
+            display:flex;
+            flex-direction:column;
+            min-height:100vh;
+            background: url("https://images.unsplash.com/photo-1566073771259-6a8506099945") no-repeat center center/cover;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.65);
+            z-index:0;
+        }
+
+        /* HEADER */
+        .header{
+            position:relative;
+            z-index:1;
+            height:70px;
+            background:rgba(0,0,0,0.6);
+            backdrop-filter:blur(10px);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 40px;
+            color:white;
+            border-bottom:1px solid rgba(255,255,255,0.2);
+        }
+
+        .header h2{
+            font-weight:500;
+        }
+
+        .logout{
+            padding:8px 18px;
+            border-radius:20px;
+            background:linear-gradient(45deg,#ff416c,#ff4b2b);
+            text-decoration:none;
+            color:white;
+            font-size:14px;
+            transition:0.3s;
+        }
+
+        .logout:hover{
+            opacity:0.8;
+        }
+
+        /* BODY WRAPPER */
+        .wrapper{
+            display:flex;
+            flex:1;
+            position:relative;
+            z-index:1;
+        }
+
+        /* Sidebar */
+        .sidebar{
+            width:260px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(15px);
+            padding:25px;
+            color:white;
+            border-right:1px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar h3{
+            text-align:center;
+            margin-bottom:30px;
+            letter-spacing:1px;
+        }
+
+        .sidebar ul{
+            list-style:none;
+        }
+
+        .sidebar ul li{
+            margin:15px 0;
+        }
+
+        .sidebar ul li a{
+            text-decoration:none;
+            color:white;
+            padding:12px;
+            display:block;
+            border-radius:8px;
+            transition:0.3s;
+        }
+
+        .sidebar ul li a:hover{
+            background:rgba(255,255,255,0.2);
+            transform:translateX(6px);
+        }
+
+        /* Main Content */
+        .main{
+            flex:1;
+            padding:40px;
+            color:white;
+        }
+
+        .main h1{
+            margin-bottom:10px;
+        }
+
+        .main p{
+            color:#ddd;
+            margin-bottom:40px;
+        }
+
+        .card-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius:15px;
+            padding:30px;
+            text-align:center;
+            transition:0.4s;
+            box-shadow:0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .card:hover{
+            transform:translateY(-10px) scale(1.05);
+            box-shadow:0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .card h3{
+            margin-bottom:15px;
+        }
+
+        .card p{
+            font-size:14px;
+            color:#ccc;
+            margin-bottom:20px;
+        }
+
+        .card a{
+            text-decoration:none;
+            padding:10px 20px;
+            background:linear-gradient(45deg,#00c6ff,#0072ff);
+            color:white;
+            border-radius:30px;
+            font-size:14px;
+        }
+
+        .card a:hover{
+            opacity:0.8;
+        }
+
+        /* FOOTER */
+        .footer{
+            position:relative;
+            z-index:1;
+            height:60px;
+            background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(10px);
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            border-top:1px solid rgba(255,255,255,0.2);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>Hotel Management System - Admin Panel</h2>
+        <a href="{% url 'Login_Admin' %}" class="logout">Logout</a>
+    </div>
+
+    <div class="wrapper">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h3>Admin Bar</h3>
+            <ul>
+                <li><a href="{% url 'Admin_Dashbord' %}">Dashboard Overview</a></li>
+                <li><a href="{% url 'Guest_Crud' %}">Guest Management</a></li>
+                <li><a href="{% url 'Room_Crud' %}">Room Inventory</a></li>
+                <li><a href="{% url 'Booking_Crud' %}">Booking Operations</a></li>
+                <li><a href="{% url 'Show_All_Payments' %}">Payment Records</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main">
+            <h1>Welcome, Administrator</h1>
+            <p>Monitor, control and manage all hotel operations from this centralized dashboard interface.</p>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>Guest Administration</h3>
+                    <p>Register new guests and maintain accurate guest information.</p>
+                    <a href="{% url 'Login_Guest' %}">Manage Guests</a>
+                </div>
+
+                <div class="card">
+                    <h3>Room Inventory</h3>
+                    <p>Manage room availability, pricing and room configurations.</p>
+                    <a href="{% url 'Room_Crud' %}">Manage Rooms</a>
+                </div>
+
+                <div class="card">
+                    <h3>Booking Management</h3>
+                    <p>Track reservations and monitor check-in/check-out processes.</p>
+                    <a href="{% url 'Booking_Crud' %}">View Bookings</a>
+                </div>
+
+                <div class="card">
+                    <h3>Financial Transactions</h3>
+                    <p>Review payment records and monitor revenue operations.</p>
+                    <a href="{% url 'Show_All_Payments' %}">View Payments</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2026 Hotel Management System | Designed & Developed by Shravan Kolekar | All Rights Reserved
+    </div>
+
+</body>
+</html>

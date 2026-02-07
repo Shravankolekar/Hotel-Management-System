@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Single Room</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url("https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+    width:260px;
+    background:rgba(17,17,18,0.55);
+    backdrop-filter:blur(10px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+.sidebar hr{
+    margin:15px 0;
+    border:0.5px solid rgba(255,255,255,0.2);
+}
+
+/* ===== MAIN CONTENT ===== */
+
+.main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ===== FORM DESIGN ===== */
+
+.form-container{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    padding:35px;
+    width:400px;
+    border-radius:20px;
+    box-shadow:0 20px 45px rgba(0,0,0,0.4);
+    border:1px solid rgba(255,255,255,0.2);
+    text-align:center;
+}
+
+.form-container h2{
+    margin-bottom:25px;
+}
+
+.form-container input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:none;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    font-size:14px;
+}
+
+.form-container input::placeholder{
+    color:#eee;
+}
+
+.form-container input:focus{
+    outline:none;
+    box-shadow:0 0 10px #3498db;
+}
+
+.form-container button{
+    width:100%;
+    padding:12px;
+    background:linear-gradient(135deg,#3498db,#2c3e50);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.form-container button:hover{
+    transform:scale(1.05);
+}
+
+.error{
+    color:#ff6b6b;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+/* ===== TABLE DESIGN ===== */
+
+.table-container{
+    margin-top:30px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:rgba(0,0,0,0.6);
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+tbody tr:hover{
+    background:rgba(255,255,255,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Room Panel</h2>
+     <a href="{% url 'Add_Room' %}">Add Room</a>
+        <hr>
+        <a href="{% url 'Show_All_Rooms' %}">Show All Rooms</a>
+        <a href="{% url 'Show_Single_Room' %}">Show Single Room</a>
+        <hr>
+        <a href="{% url 'Update_Room_Number' %}">Update Room Number</a>
+        <a href="{% url 'Update_Room_Price' %}">Update Room Price</a>
+        <a href="{% url 'Update_Room_Type' %}">Update Room Type</a>
+        <hr>
+        <a href="{% url 'Delete_Room' %}">Delete Room</a>
+        
+        <hr>
+
+        <a href="{% url 'Room_Crud' %}">Dashboard</a>
+    <a href="{% url 'Login_Guest' %}">Logout</a>
+    
+</div>
+
+<div class="main">
+    <div>
+        <div class="form-container">
+            <h2>Find Room</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="room_type" placeholder="Enter Room Type" required>
+                <button type="submit">Show Room</button>
+            </form>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+
+        {% if r %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room ID</th>
+                        <th>Room No</th>
+                        <th>Room Type</th>
+                        <th>Price / Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{r.rid}}</td>
+                        <td>{{r.room_no}}</td>
+                        <td>{{r.room_type}}</td>
+                        <td>₹ {{r.price_per_day}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

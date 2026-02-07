@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Management | View Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:
+      linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+      url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.sidebar{
+    width:260px;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(15px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+
+/* MAIN */
+.main{
+    flex:1;
+    padding:40px;
+}
+
+.main h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* SEARCH BOX */
+.search-box{
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:15px;
+    backdrop-filter:blur(20px);
+    margin-bottom:25px;
+    text-align:center;
+}
+
+.search-box input{
+    padding:10px;
+    width:250px;
+    border:none;
+    border-radius:8px;
+}
+
+.search-box button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#3498db;
+    color:white;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#2980b9;
+}
+
+/* TABLE */
+.table-container{
+    background:rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:25px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.6);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    color:white;
+}
+
+thead{
+    background:rgba(255,255,255,0.2);
+}
+
+thead th{
+    padding:14px;
+    font-size:13px;
+    text-transform:uppercase;
+}
+
+tbody td{
+    padding:12px;
+    text-align:center;
+    font-size:14px;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+tbody tr:hover{
+    background:rgba(255,255,255,0.1);
+}
+
+.error{
+    text-align:center;
+    color:#ff6b6b;
+    margin-top:10px;
+    font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Booking Panel</h2>
+
+    <a href="/Booking_Crud/">Dashboard</a>
+    <hr>
+    <a href="/Add_Booking/">Add Booking</a>
+    <hr>
+    <a href="/Show_All_Bookings/">Show All Bookings</a>
+    <a href="/Show_Single_Booking/">Search Booking</a>
+    <hr>
+    <a href="/Update_All_Data/">Update Full Booking</a>
+    <hr>
+    <a href="/Delete_Booking/">Delete Booking</a>
+
+    <hr>
+
+    <a href="/Admin_Dashbord/">Admin Home</a>
+    <a href="{% url 'Login_Admin' %}">Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<h2>View Booking Details</h2>
+
+<div class="search-box">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="number" name="bid" placeholder="Enter Booking ID" required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% if error %}
+    <div class="error">{{ error }}</div>
+{% endif %}
+
+{% if b %}
+<div class="table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Guest ID</th>
+            <th>Room ID</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Total Days</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{ b.bid }}</td>
+            <td>{{ b.gid }}</td>
+            <td>{{ b.rid }}</td>
+            <td>{{ b.check_in }}</td>
+            <td>{{ b.check_out }}</td>
+            <td>{{ b.total_day }}</td>
+            <td>{{ b.status }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>

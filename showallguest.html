@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show All Guests</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    width:260px;
+    background:rgba(17,17,18,0.55);
+    backdrop-filter:blur(10px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+.sidebar hr{
+    margin:15px 0;
+    border:0.5px solid rgba(255,255,255,0.2);
+}
+
+/* ================= MAIN CONTENT ================= */
+
+.main-content{
+    flex:1;
+    padding:40px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* Glass Table Container */
+
+.table-container{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    border:1px solid rgba(255,255,255,0.2);
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:rgba(0,0,0,0.5);
+}
+
+th, td{
+    padding:12px 10px;
+    text-align:center;
+    font-size:14px;
+}
+
+th{
+    text-transform:uppercase;
+    font-size:13px;
+    letter-spacing:0.5px;
+}
+
+tbody tr{
+    transition:0.3s;
+}
+
+tbody tr:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+
+    
+    <a href="{% url 'Guest_Crud' %}">Dashboard</a>
+    <a href="{% url 'Login_Guest' %}">Logout</a>
+
+    <hr>
+
+    <a href="{% url 'Show_All_Guests' %}">Show All Guests</a>
+    <a href="{% url 'Show_Single_Guest' %}">Show Single Guest</a>
+
+    <hr>
+
+    <a href="{% url 'Update_Guest_Address' %}">Update Address</a>
+    <a href="{% url 'Update_Guest_Mobail_Number' %}">Update Mobile</a>
+    <a href="{% url 'Update_Guest_Email_Id' %}">Update Email</a>
+    <a href="{% url 'Update_Guest_Name' %}">Update Guest Name</a>
+
+    <hr>
+
+    <a href="{% url 'Delete_Guest' %}">Delete Guest</a>
+</div>
+
+<div class="main-content">
+
+    <h2>All Guest Details</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Aadhar</th>
+                    <th>Address</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for g in guests %}
+                <tr>
+                    <td>{{ g.gid }}</td>
+                    <td>{{ g.gname }}</td>
+                    <td>{{ g.gemail }}</td>
+                    <td>{{ g.gmob_no }}</td>
+                    <td>{{ g.gid_proof }}</td>
+                    <td>{{ g.address }}</td>
+                    <td>{{ g.gl_password }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

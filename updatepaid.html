@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Payment paid status</title>
+</head>
+<body>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <input type="number" name="pid" placeholder="entere a payment id " required>
+
+        <input type="text" name="paid" placeholder="enter payment status" value="{{p.paid}}" required>
+
+        <button type="submit">Update</button>
+    </form>
+
+    
+    {% if error %}
+        <p><b style="color: red;">{{error}}</b></p>
+    {% endif %}
+        
+
+    
+    {% if message %}
+        <p><b style="color: green;">{{message}}</b></p>
+    {% endif %}
+        
+    
+</body>
+</html>

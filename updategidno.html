@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Management | Update Guest ID</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:
+      linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+      url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(15px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+/* MAIN */
+.main{
+    flex:1;
+    padding:40px;
+}
+
+.main h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* FORM CONTAINER */
+.form-container{
+    max-width:450px;
+    margin:0 auto;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.6);
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    font-size:13px;
+    font-weight:600;
+    display:block;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+}
+
+input:focus{
+    outline:none;
+    box-shadow:0 0 6px rgba(155,89,182,0.6);
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#9b59b6;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#7d3c98;
+}
+
+.msg{
+    text-align:center;
+    margin-top:12px;
+    font-weight:600;
+}
+
+.error{
+    color:#ff6b6b;
+}
+
+.success{
+    color:#2ecc71;
+}
+
+.note{
+    margin-top:15px;
+    font-size:12px;
+    text-align:center;
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Booking Panel</h2>
+
+    <a href="/Booking_Crud/">Dashboard</a>
+    <a href="/Add_Booking/">Add Booking</a>
+    <a href="/Show_All_Bookings/">Show All Bookings</a>
+    <a href="/Show_Single_Booking/">Search Booking</a>
+    <a href="/Update_All_Data/">Update Full Booking</a>
+    <a href="/Update_Guest_Id_Number/">Update Guest ID</a>
+    <a href="/Update_Room_Id_Number/">Update Room ID</a>
+    <a href="/Update_Check_In_Out_And_Total_Days/">Update Dates</a>
+    <a href="/Update_Booking_Status/">Update Status</a>
+    <a href="/Delete_Booking/">Delete Booking</a>
+
+    <hr>
+
+    <a href="/Admin_Dashbord/">Admin Home</a>
+    <a href="{% url 'Login_Admin' %}">Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<h2>Update Guest ID</h2>
+
+<div class="form-container">
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Booking ID</label>
+        <input type="number" name="bid" placeholder="Enter Booking ID" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label>Select Guest</label>
+        <select name="gid" required>
+            {% for g in guests %}
+                <option value="{{ g.gid }}"
+                    {% if b and g.gid == b.gid.gid %}selected{% endif %}>
+                    {{ g.gname }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit">Update Guest</button>
+
+    {% if error %}
+        <p class="msg error">{{ error }}</p>
+    {% endif %}
+
+    {% if message %}
+        <p class="msg success">{{ message }}</p>
+    {% endif %}
+</form>
+
+<p class="note">
+ℹ️ Make sure the new Guest ID exists before updating.
+</p>
+
+</div>
+
+</div>
+
+</body>
+</html>

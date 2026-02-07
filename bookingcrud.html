@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hotel Management | Booking Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background: linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.75)
+    ),
+    url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* HEADER */
+.header{
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:1px;
+}
+
+.nav-links{
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    padding:8px 16px;
+    border-radius:20px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+/* MAIN SECTION */
+.main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.dashboard{
+    width:100%;
+    max-width:1100px;
+    padding:50px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    animation:fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.dashboard h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:28px;
+    font-weight:600;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+/* CARDS */
+.card{
+    padding:30px 20px;
+    border-radius:15px;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 20px 45px rgba(0,0,0,0.6);
+}
+
+.card h3{
+    margin-bottom:12px;
+    font-size:18px;
+}
+
+.card p{
+    font-size:13px;
+    opacity:0.9;
+}
+
+/* Gradient Cards */
+.card:nth-child(1){background:linear-gradient(135deg,#00c6ff,#0072ff);}
+.card:nth-child(2){background:linear-gradient(135deg,#1abc9c,#16a085);}
+.card:nth-child(3){background:linear-gradient(135deg,#f39c12,#d35400);}
+.card:nth-child(4){background:linear-gradient(135deg,#9b59b6,#8e44ad);}
+.card:nth-child(5){background:linear-gradient(135deg,#ff416c,#ff4b2b);}
+.card:nth-child(6){background:linear-gradient(135deg,#2ecc71,#27ae60);}
+.card:nth-child(7){background:linear-gradient(135deg,#e67e22,#e74c3c);}
+.card:nth-child(8){background:linear-gradient(135deg,#34495e,#2c3e50);}
+.card:nth-child(9){background:linear-gradient(135deg,#c0392b,#96281b);}
+
+/* FOOTER */
+.footer{
+    height:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(10px);
+    font-size:13px;
+    border-top:1px solid rgba(255,255,255,0.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">Booking Management System</div>
+
+    <div class="nav-links">
+        <a href="/Admin_Dashbord/">Home</a>
+        <a href="{% url 'Login_Admin' %}">Logout</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="dashboard">
+    <h2>Booking Management Console</h2>
+
+    <div class="grid">
+
+        <a href="/Add_Booking/" class="card">
+            <h3>Add Booking</h3>
+            <p>Create a new reservation entry.</p>
+        </a>
+
+        <a href="/Show_All_Bookings/" class="card">
+            <h3>All Bookings</h3>
+            <p>View complete booking records.</p>
+        </a>
+
+        <a href="/Show_Single_Booking/" class="card">
+            <h3>Search Booking</h3>
+            <p>Locate booking using ID.</p>
+        </a>
+
+        <a href="/Update_All_Data/" class="card">
+            <h3>Update Booking</h3>
+            <p>Edit full booking information.</p>
+        </a>
+
+
+        <a href="/Delete_Booking/" class="card">
+            <h3>Delete Booking</h3>
+            <p>Permanently remove booking record.</p>
+        </a>
+
+    </div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 Hotel Management System | Booking Operations Module | Developed by Shravan Kolekar
+</div>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Guest Name</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", sans-serif;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+/* ========== SIDEBAR ========== */
+
+.sidebar{
+    width:260px;
+    background:rgba(17,17,18,0.55);
+    backdrop-filter:blur(10px);
+    padding:30px 20px;
+    display:flex;
+    flex-direction:column;
+    border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.sidebar a{
+    text-decoration:none;
+    color:white;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}
+
+.sidebar hr{
+    margin:15px 0;
+    border:0.5px solid rgba(255,255,255,0.2);
+}
+
+/* ========== MAIN CONTENT ========== */
+
+.main-content{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.form-box{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(12px);
+    padding:40px;
+    width:380px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    border:1px solid rgba(255,255,255,0.2);
+    text-align:center;
+}
+
+.form-box h2{
+    margin-bottom:20px;
+}
+
+.form-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.3);
+    background:rgba(255,255,255,0.2);
+    color:white;
+}
+
+.form-box input::placeholder{
+    color:#eee;
+}
+
+.form-box input:focus{
+    outline:none;
+    border-color:#f39c12;
+}
+
+.form-box button{
+    width:100%;
+    padding:12px;
+    background:linear-gradient(135deg,#f39c12,#d68910);
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.form-box button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+.error{
+    margin-top:10px;
+    color:#ff6b6b;
+    font-weight:bold;
+}
+
+.success{
+    margin-top:10px;
+    color:#2ecc71;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+
+   
+    <a href="{% url 'Guest_Crud' %}">Dashboard</a>
+    <a href="{% url 'Login_Guest' %}">Logout</a>
+
+    <hr>
+
+    <a href="{% url 'Show_All_Guests' %}">Show All Guests</a>
+    <a href="{% url 'Show_Single_Guest' %}">Show Single Guest</a>
+
+    <hr>
+
+    <!-- 👇 Newly Added Link -->
+    
+    <a href="{% url 'Update_Guest_Address' %}">Update Address</a>
+    <a href="{% url 'Update_Guest_Mobail_Number' %}">Update Mobile</a>
+    <a href="{% url 'Update_Guest_Email_Id' %}">Update Email</a>
+    <a href="{% url 'Update_Guest_Name' %}">Update Guest Name</a>
+
+    <hr>
+
+    <a href="{% url 'Delete_Guest' %}">Delete Guest</a>
+</div>
+
+<div class="main-content">
+    <div class="form-box">
+        <h2>Update Guest Name</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="number" name="gid"
+                   placeholder="Enter Guest ID"
+                   value="{{ g.gid }}" required>
+
+            <input type="text" name="gname"
+                   placeholder="Enter Guest Name"
+                   value="{{ g.gname }}" required>
+
+            <button type="submit">Update Name</button>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            {% if message %}
+                <p class="success">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

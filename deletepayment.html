@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            display:flex;
+            min-height:100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+            background-size:cover;
+            background-position:center;
+            color:white;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar{
+            width:260px;
+            background:rgba(17,17,18,0.85);
+            padding:30px 20px;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .sidebar h2{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        .sidebar a{
+            text-decoration:none;
+            color:white;
+            padding:12px 15px;
+            margin-bottom:10px;
+            border-radius:8px;
+            transition:0.3s;
+            font-size:14px;
+        }
+
+        .sidebar a:hover{
+            background:rgba(255,255,255,0.2);
+            transform:translateX(5px);
+        }
+
+        .sidebar hr{
+            margin:15px 0;
+            border:0.5px solid rgba(255,255,255,0.2);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+
+        .main-content{
+            flex:1;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .form-box{
+            background:white;
+            color:black;
+            padding:40px;
+            width:350px;
+            border-radius:10px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.5);
+            text-align:center;
+        }
+
+        .form-box h2{
+            margin-bottom:20px;
+        }
+
+        .form-box input{
+            width:100%;
+            padding:12px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:6px;
+        }
+
+        .form-box input:focus{
+            outline:none;
+            border-color:#667eea;
+        }
+
+        .form-box button{
+            width:100%;
+            padding:12px;
+            background:#e53e3e;
+            border:none;
+            color:white;
+            font-weight:bold;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .form-box button:hover{
+            background:#c53030;
+        }
+
+        .error{
+            margin-top:10px;
+            color:red;
+            font-weight:bold;
+        }
+
+        .success{
+            margin-top:10px;
+            color:green;
+            font-weight:bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+
+        <a href="{% url 'Guest_Crud' %}">Home</a>
+        <a href="{% url 'Admin_Dashbord' %}">Dashboard</a>
+        <a href="{% url 'Login_Admin' %}">Logout</a>
+
+        <hr>
+
+        <a href="{% url 'Show_All_Guests' %}">Show All Guests</a>
+        <a href="{% url 'Show_Single_Guest' %}">Show Single Guest</a>
+
+        <hr>
+
+        <a href="{% url 'Update_Guest_Address' %}">Update Address</a>
+        <a href="{% url 'Update_Guest_Mobail_Number' %}">Update Mobile</a>
+        <a href="{% url 'Update_Guest_Email_Id' %}">Update Email</a>
+
+        <hr>
+
+        <a href="{% url 'Delete_Guest' %}">Delete Guest</a>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="main-content">
+        <div class="form-box">
+            <h2>Delete Payment</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="number" name="pid" placeholder="Enter Payment ID" required>
+
+                <button type="submit">Delete Payment</button>
+
+                {% if error %}
+                    <p class="error">{{error}}</p>
+                {% endif %}
+
+                {% if message %}
+                    <p class="success">{{message}}</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
